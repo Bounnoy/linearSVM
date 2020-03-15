@@ -10,7 +10,7 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from sklearn.metrics import classification_report, roc_curve
+from sklearn.metrics import precision_score, recall_score, accuracy_score, roc_curve
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -44,13 +44,13 @@ if __name__ == '__main__':
     YPredict = classify.predict(XTest)
 
     # Report accuracy, precision, and recall.
-    report = classification_report(YTest, YPredict, output_dict = True)
+    accuracy = accuracy_score(YTest, YPredict)
+    precision = precision_score(YTest, YPredict)
+    recall = recall_score(YTest, YPredict)
 
-    print("Accuracy:", report['accuracy'])
-    print("Spam (precision):", report['1.0']['precision'])
-    print("Spam (recall):", report['1.0']['recall'])
-    print("Non-spam (precision):", report['0.0']['precision'])
-    print("Non-spam (recall):", report['0.0']['recall'])
+    print("Accuracy:", accuracy)
+    print("Precision:", precision)
+    print("Recall:", recall)
 
     # Create ROC curve for the SVM on test data.
     YScore = classify.decision_function(XTest)
